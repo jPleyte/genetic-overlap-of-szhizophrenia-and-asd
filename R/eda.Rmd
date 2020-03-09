@@ -1,0 +1,71 @@
+---
+title: "Exploratory Data Analysis"
+author: "jay pleyte"
+date: "3/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(readr)
+library(VennDiagram)
+library(RColorBrewer)
+library(ggplot2)
+library(dplyr)
+```
+
+
+```{r}
+# Genes from Integrated Post-GWAS Analysis Sheds New Light on the Disease Mechanisms of Schizophrenia
+#   https://www.ncbi.nlm.nih.gov/pubmed/27754856
+df.scores1 <- read_tsv('../data/IntegratedPost-GWASAnalysis_files/scores_1.tsv', col_names = c('gene', 'score'))
+
+# Gene from Polygenic risk score, genome-wide association, and gene set analyses of cognitive domain deficits in schizophrenia
+#  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6252137/
+df.scores2 <- read_tsv('../data/PolygenicRiskScore_files/scores_2.tsv', col_names = c('gene', 'score'))
+
+# Genes from the Simons Foundation Autism Research Initiative (SFARI)
+#  https://www.sfari.org/
+df.scores3 <- read_tsv('../data/SFARI/scores_3.tsv', col_names = c('gene', 'score'))
+```
+
+
+```{r}
+par(mfrow=c(1,3))
+hist(df.scores1$score, main = 'Schizophrenia scores I')
+hist(df.scores2$score, main = 'Schizophrenia scores II')
+hist(df.scores3$score, main = 'ASD scores')
+```
+
+Venn Diagram of gene overlap from three sources
+```{r}
+myCol <- brewer.pal(3, "Pastel2")
+venn.diagram(
+  x = list(df.scores1$gene, df.scores2$gene, df.scores3$gene),
+  category.names = c("Schizophrenia Gene Set I" , 
+                     "Schizophrenia Gene Set II", 
+                     "ASD Gene Set"),
+  filename = 'three_sources_venn_diagramm.png',
+  output=TRUE,
+  lwd = 2,
+  lty = 'blank',
+  fill = myCol,
+  cat.default.pos = "outer",
+  cat.pos = c(-27, 27, 135),
+  cat.dist = c(0.055, 0.055, 0.085),
+  cat.cex = 0.8
+)
+```
+
+Export gene List to file
+```{r}
+gene_list <- rbind(rbind(df.scores1,df.scores2), df.scores3) %>% 
+  select(gene) %>% 
+  distinct()
+
+write_delim(gene_list, 'gene_list.txt', delim = "\r\n")
+```
+

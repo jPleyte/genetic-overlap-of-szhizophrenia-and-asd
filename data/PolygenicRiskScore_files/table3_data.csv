@@ -1,0 +1,281 @@
+gene,p_value,category
+AGR2,0.0002,Speed of Processing
+AGR3,0.0004,Speed of Processing
+ANGEL1,0.0009,Speed of Processing
+ANGEL2,0.001,Speed of Processing
+ATF1,0.0016,Speed of Processing
+BTD,0.001,Speed of Processing
+CDH1,0.0002,Speed of Processing
+CDH3,0.0002,Speed of Processing
+DIO3,0.0017,Speed of Processing
+DIO3OS,0.0007,Speed of Processing
+FLJ43681,0.0017,Speed of Processing
+HIF1AN,0.0011,Speed of Processing
+HSPA8,0.0016,Speed of Processing
+HYAL1,0.0015,Speed of Processing
+LINC00687,0.0012,Speed of Processing
+LOC101927881,0.0014,Speed of Processing
+NDUFB8,0.0007,Speed of Processing
+LOC442497,0.0013,Speed of Processing
+LRRC74,0.0014,Speed of Processing
+LOC341056,0.0012,Speed of Processing
+MIR4311,0.0011,Speed of Processing
+MIR6872,0.0012,Speed of Processing
+MYF6,0.0012,Speed of Processing
+MCEMP1,0.0012,Speed of Processing
+NHEG1,0.0004,Speed of Processing
+NPBWR2,0.001,Speed of Processing
+OPRL1,0.0017,Speed of Processing
+PCP2,0.0017,Speed of Processing
+RETN,0.001,Speed of Processing
+RPS6KC1,0.0006,Speed of Processing
+SEC31B,0.0009,Speed of Processing
+SEMA3B-AS1,0.0015,Speed of Processing
+SLC35D3,0.0011,Speed of Processing
+STXBP2,0.0014,Speed of Processing
+TFDP2,0.0007,Speed of Processing
+TMEM225,0.0015,Speed of Processing
+WNT8B,0.0011,Speed of Processing
+TUSC2,0.0016,Speed of Processing
+TSNAXIP1,0.0012,Speed of Processing
+ZNF596,0.0017,Speed of Processing
+ACD,0.00077,Attention/Vigilance
+ABCB1,0.00076,Attention/Vigilance
+ACTR3,0.00092,Attention/Vigilance
+C16orf86,0.00077,Attention/Vigilance
+C19orf48,0.00014,Attention/Vigilance
+CBWD6,0.00074,Attention/Vigilance
+CEBPA,0.00084,Attention/Vigilance
+CEBPA-AS1,0.00065,Attention/Vigilance
+ENKD1,0.00077,Attention/Vigilance
+EVPLL,0.00063,Attention/Vigilance
+FKBP9,0.00086,Attention/Vigilance
+FOXD4L6,0.00075,Attention/Vigilance
+HSPA8,0.00029,Attention/Vigilance
+HAX1,0.00059,Attention/Vigilance
+KLK1,0.00000438,Attention/Vigilance
+KLK15,0.00000301,Attention/Vigilance
+KLK3,0.00000166,Attention/Vigilance
+KLK2,0.00000307,Attention/Vigilance
+KLKP1,0.00000688,Attention/Vigilance
+LOC341056,0.00082,Attention/Vigilance
+LARS2-AS1,0.001,Attention/Vigilance
+LINC01210,0.00066,Attention/Vigilance
+LOC100499194,0.00031,Attention/Vigilance
+LAMA4,0.00056,Attention/Vigilance
+LOC440896,0.00075,Attention/Vigilance
+MGC45922,0.00000875,Attention/Vigilance
+PARD6A,0.00077,Attention/Vigilance
+OR5AR1,0.00052,Attention/Vigilance
+OR5M11,0.0008,Attention/Vigilance
+OR5M3,0.00061,Attention/Vigilance
+RUNDC3B,0.00057,Attention/Vigilance
+OR5M9,0.00082,Attention/Vigilance
+OR9G1,0.00084,Attention/Vigilance
+OR9G9,0.00084,Attention/Vigilance
+MIR6778,0.00097,Attention/Vigilance
+PGM5P2,0.00075,Attention/Vigilance
+OR5M8,0.00035,Attention/Vigilance
+SNORD88C,0.0003,Attention/Vigilance
+SOX14,0.00086,Attention/Vigilance
+TOP3A,0.00084,Attention/Vigilance
+ACD,0.00017,WorkingMemory
+BRF2,0.0001,WorkingMemory
+C5orf22,0.0000231,WorkingMemory
+C16orf86,0.00017,WorkingMemory
+CCDC42B,0.00029,WorkingMemory
+CTCF,0.00033,WorkingMemory
+DDX54,0.00045,WorkingMemory
+E2F2,0.00029,WorkingMemory
+ENKD1,0.00017,WorkingMemory
+FAM102A,0.00048,WorkingMemory
+GPR124,0.00016,WorkingMemory
+GFOD2,0.00025,WorkingMemory
+IQCD,0.00039,WorkingMemory
+IRF4,0.00048,WorkingMemory
+KLK1,0.0004,WorkingMemory
+KLK15,0.0003,WorkingMemory
+KLK3,0.00014,WorkingMemory
+LOC100506178,0.00045,WorkingMemory
+LOC401320,0.00039,WorkingMemory
+MIR6762,0.00048,WorkingMemory
+MIR7106,0.00039,WorkingMemory
+MPZ,0.00045,WorkingMemory
+NEUROD6,0.0000334,WorkingMemory
+R3HCC1L,0.00035,WorkingMemory
+PPM1B,0.00011,WorkingMemory
+PTN,0.00013,WorkingMemory
+PARD6A,0.00017,WorkingMemory
+RASAL1,0.00026,WorkingMemory
+RNU6-83P,0.00018,WorkingMemory
+RLTPR,0.00044,WorkingMemory
+RUNDC3B,0.00011,WorkingMemory
+SDHC,0.00038,WorkingMemory
+SLC25A40,0.00033,WorkingMemory
+SPRR2B,0.00047,WorkingMemory
+SPRR2E,0.00036,WorkingMemory
+SPRR2F,0.00032,WorkingMemory
+THAP11,0.00049,WorkingMemory
+TPCN1,0.00048,WorkingMemory
+TSNAXIP1,0.00045,WorkingMemory
+ZNF596,0.00032,WorkingMemory
+C10orf25,0.00095,Verbal Memory
+DTYMK,0.00057,Verbal Memory
+FAM200B,0.00092,Verbal Memory
+GCSAML,0.00097,Verbal Memory
+GTF2H1,0.00011,Verbal Memory
+HOXD-AS1,0.00035,Verbal Memory
+HOXD-AS2,0.00048,Verbal Memory
+HOXD1,0.0008,Verbal Memory
+HOXD3,0.00017,Verbal Memory
+HOXD4,0.0001,Verbal Memory
+HOXD8,0.00094,Verbal Memory
+HSPA13,0.00044,Verbal Memory
+ING5,0.00034,Verbal Memory
+LDHA,0.00039,Verbal Memory
+LDHC,0.00075,Verbal Memory
+LOC101928869,0.00052,Verbal Memory
+LOC102800310,0.00033,Verbal Memory
+MATR3,0.00025,Verbal Memory
+MIR10B,0.00017,Verbal Memory
+MIR1228,0.00093,Verbal Memory
+MIR4781,0.00062,Verbal Memory
+MZB1,0.00088,Verbal Memory
+NDUFA4L2,0.00044,Verbal Memory
+NOMO3,0.00049,Verbal Memory
+NXPH4,0.00073,Verbal Memory
+OR10S1,0.0003,Verbal Memory
+OR2G2,0.0003,Verbal Memory
+OR4D5,0.00014,Verbal Memory
+OR6T1,0.0000957,Verbal Memory
+OR8D4,0.00026,Verbal Memory
+PAIP2,0.00095,Verbal Memory
+RPF2,0.00021,Verbal Memory
+SHMT2,0.00062,Verbal Memory
+SLC23A1,0.00077,Verbal Memory
+SNHG4,0.00032,Verbal Memory
+TMEM225,0.00055,Verbal Memory
+SPRN,0.00088,Verbal Memory
+STAC3,0.00036,Verbal Memory
+SNORA74A,0.00036,Verbal Memory
+TMEM59,0.00082,Verbal Memory
+ADH1A,0.00115,Visual Memory
+AGAP11,0.00109,Visual Memory
+ALOX12,0.00011,Visual Memory
+ARL6,0.00064,Visual Memory
+C17orf49,0.00058,Visual Memory
+CAMK2N2,0.00064,Visual Memory
+COL28A1,0.00039,Visual Memory
+DACT2,0.0000589,Visual Memory
+DDOST,0.001,Visual Memory
+DNALI1,0.0000988,Visual Memory
+ECE2,0.00061,Visual Memory
+FAM25A,0.00044,Visual Memory
+GLUD1,0.00123,Visual Memory
+GNL2,0.00043,Visual Memory
+LOC101927780,0.0006,Visual Memory
+LINC00656,0.00061,Visual Memory
+LOC101928035,0.00105,Visual Memory
+LINC00458,0.0000416,Visual Memory
+LOC100506713,0.00011,Visual Memory
+LOC101929420,0.00000404,Visual Memory
+MIR1470,0.00024,Visual Memory
+MIR195,0.00071,Visual Memory
+MIR497,0.00071,Visual Memory
+MIR497HG,0.00071,Visual Memory
+PPM1B,0.00024,Visual Memory
+PAQR9,0.00073,Visual Memory
+MN1,0.0000986,Visual Memory
+PPIL2,0.00013,Visual Memory
+PINK1-AS,0.00114,Visual Memory
+MIR5581,0.00116,Visual Memory
+PROK2,0.00047,Visual Memory
+RNASEK,0.00046,Visual Memory
+RNASEK-C17orf49,0.00056,Visual Memory
+SNIP1,0.00023,Visual Memory
+TFAMP1,0.00105,Visual Memory
+TFAP2B,0.00071,Visual Memory
+UBE2L3,0.00087,Visual Memory
+YPEL1,0.00033,Visual Memory
+WIZ,0.00039,Visual Memory
+ZNF121,0.00105,Visual Memory
+APIP,0.00044,Reasoning/ProblemSolving
+BAG4,0.00068,Reasoning/ProblemSolving
+CATSPER2,0.00052,Reasoning/ProblemSolving
+CHN1,0.00048,Reasoning/ProblemSolving
+CKMT1B,0.00048,Reasoning/ProblemSolving
+CLTA,0.00082,Reasoning/ProblemSolving
+CYP2A13,0.00033,Reasoning/ProblemSolving
+CYP2F1,0.00058,Reasoning/ProblemSolving
+DDHD2,0.00031,Reasoning/ProblemSolving
+FGFR1,0.00011,Reasoning/ProblemSolving
+FKBP9,0.00015,Reasoning/ProblemSolving
+HIC1,0.00065,Reasoning/ProblemSolving
+KLRG2,0.00069,Reasoning/ProblemSolving
+LETM2,0.00012,Reasoning/ProblemSolving
+MEPCE,0.00057,Reasoning/ProblemSolving
+MIR132,0.00074,Reasoning/ProblemSolving
+MIR1343,0.00067,Reasoning/ProblemSolving
+MIR212,0.00075,Reasoning/ProblemSolving
+MIR6840,0.00057,Reasoning/ProblemSolving
+OR5A1,0.00083,Reasoning/ProblemSolving
+OR5A2,0.00036,Reasoning/ProblemSolving
+OR5AN1,0.00069,Reasoning/ProblemSolving
+PILRB,0.0005,Reasoning/ProblemSolving
+PMS2P1,0.00035,Reasoning/ProblemSolving
+PPAPDC1B,0.00029,Reasoning/ProblemSolving
+PPP1R35,0.00081,Reasoning/ProblemSolving
+PVRIG2P,0.00069,Reasoning/ProblemSolving
+RP9P,0.00028,Reasoning/ProblemSolving
+RNU6-83P,0.00012,Reasoning/ProblemSolving
+SERF2,0.00078,Reasoning/ProblemSolving
+SLC4A4,0.00063,Reasoning/ProblemSolving
+SMG6,0.00018,Reasoning/ProblemSolving
+SPDYE3,0.00021,Reasoning/ProblemSolving
+SRSF10,0.0003,Reasoning/ProblemSolving
+STAG3L5P,0.00043,Reasoning/ProblemSolving
+STAG3L5P-PVRIG2P-PILRB,0.0004,Reasoning/ProblemSolving
+STRC,0.00072,Reasoning/ProblemSolving
+TBX21,0.0009,Reasoning/ProblemSolving
+WHSC1L1,0.00011,Reasoning/ProblemSolving
+ZCWPW1,0.00069,Reasoning/ProblemSolving
+ACD,0.00041,CMINDS CompositeScore
+ABCA11P,0.00069,CMINDS CompositeScore
+ALOX12,0.00032,CMINDS CompositeScore
+C16orf86,0.00041,CMINDS CompositeScore
+C17orf49,0.00078,CMINDS CompositeScore
+BLVRA,0.00105,CMINDS CompositeScore
+BRINP2,0.00061,CMINDS CompositeScore
+ATP6V1B1,0.0011,CMINDS CompositeScore
+ENKD1,0.00041,CMINDS CompositeScore
+CCDC116,0.00033,CMINDS CompositeScore
+DCLK3,0.00034,CMINDS CompositeScore
+GFOD2,0.00083,CMINDS CompositeScore
+EIF4E3,0.00093,CMINDS CompositeScore
+C9orf92,0.0000859,CMINDS CompositeScore
+FARP2,0.00053,CMINDS CompositeScore
+GSTM2P1,0.00071,CMINDS CompositeScore
+LOC100289361,0.00068,CMINDS CompositeScore
+LINC00458,0.00068,CMINDS CompositeScore
+LOC100506713,0.00039,CMINDS CompositeScore
+LOC101927750,0.00068,CMINDS CompositeScore
+MIR130B,0.00067,CMINDS CompositeScore
+MIR195,0.00094,CMINDS CompositeScore
+MIR497,0.00094,CMINDS CompositeScore
+MIR497HG,0.00094,CMINDS CompositeScore
+PPM1B,0.00012,CMINDS CompositeScore
+PAQR9,0.00074,CMINDS CompositeScore
+PARD6A,0.00041,CMINDS CompositeScore
+PPIL2,0.00018,CMINDS CompositeScore
+MIR301B,0.00067,CMINDS CompositeScore
+RLTPR,0.00069,CMINDS CompositeScore
+RNASE10,0.00071,CMINDS CompositeScore
+RNASEK,0.00066,CMINDS CompositeScore
+RNASEK-C17orf49,0.00074,CMINDS CompositeScore
+SDF2L1,0.00038,CMINDS CompositeScore
+STK25,0.00089,CMINDS CompositeScore
+TMEM225,0.00044,CMINDS CompositeScore
+UBE2L3,0.00099,CMINDS CompositeScore
+YPEL1,0.00033,CMINDS CompositeScore
+YDJC,0.00058,CMINDS CompositeScore
+VAX2,0.00012,CMINDS CompositeScore
