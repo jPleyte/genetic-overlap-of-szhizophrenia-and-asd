@@ -2,10 +2,14 @@ package io.github.pleyte.gmis.visualisation;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.LinearGradientPaint;
 import java.awt.Paint;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Set;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
@@ -21,6 +25,19 @@ import io.github.pleyte.gmis.intermediate.NetworkLoader;
 import io.github.pleyte.gmis.result.ResultsLoader;
 
 public class GeneNetworkVisualisation {
+	private static Logger log;
+
+	static {
+		InputStream stream = GeneNetworkVisualisation.class.getClassLoader().getResourceAsStream("logging.properties");
+		try {
+			LogManager.getLogManager().readConfiguration(stream);
+			log = Logger.getLogger(GeneNetworkVisualisation.class.getName());
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static final String FILE_NETWORK_SCORED_AND_LINKED_GENES = "gene_network.sif";
 	public static final String FILE_NETWORK_CLUSTERED_AND_LINKED_GENES = "clustered_gene_network.sif";
 
@@ -63,10 +80,7 @@ public class GeneNetworkVisualisation {
 	 */
 	private void clusteredGeneNetwork(ResultsLoader results) throws IOException {
 		Graph<String, String> graph = loadClusteredAndLinkedGraph();
-		// 3 Layout<String, String> layout = new ISOMLayout<>(graph);
-		// 2 Layout<String, String> layout = new CircleLayout<>(graph);
 		//		1 Layout<String, String> layout = new FRLayout<>(graph);
-		// not as good as 1 Layout<String, String> layout = new FRLayout2<>(graph);
 		Layout<String, String> layout = new KKLayout<>(graph);
 		((KKLayout) layout).setAdjustForGravity(true);
 		((KKLayout) layout).setDisconnectedDistanceMultiplier(100);
@@ -82,7 +96,7 @@ public class GeneNetworkVisualisation {
 
 	private Transformer<String, Paint> getVertexTransformer(ResultsLoader results) {
 		return new Transformer<String, Paint>() {
-			private final Color[] palette = { Color.GRAY, Color.GREEN, Color.BLUE, Color.RED, Color.MAGENTA };
+			private final Color[] palette = { Color.GRAY, Color.GREEN, Color.BLUE, Color.RED };
 
 			@Override
 			public Paint transform(String gene) {
@@ -91,8 +105,31 @@ public class GeneNetworkVisualisation {
 					boolean isNetwork2 = results.getNetworkScores2().getClusters().stream().flatMap(Set::stream).anyMatch(gene::equals);
 					boolean isNetwork3 = results.getNetworkScores3().getClusters().stream().flatMap(Set::stream).anyMatch(gene::equals);
 
-					if ((isNetwork1 ? 1 : 0) + (isNetwork2 ? 1 : 0) + (isNetwork3 ? 1 : 0) > 1) {
-						return palette[4];
+					// Which of the three sets overlap?
+					//					if(isNetwork1 && isNetwork2 && isNetwork3) {
+					//						log.severe("jDebug: All three overlap");
+					//					} else if (isNetwork1 && isNetwork2) {
+					//						log.severe("jDebug: one and two ");
+					//					} else if (isNetwork1 && isNetwork3) {
+					//						log.severe("jDebug: one and three");
+					//					} else if (isNetwork2 && isNetwork3) {
+					//						log.severe("jDebug: two and three");
+					//					}
+
+					if (isNetwork1 && isNetwork3) {
+						LinearGradientPaint l = new LinearGradientPaint(0, 0, 10, 10, new float[] { 0f, 0.3f, 1f }, new Color[] { new Color(0.8f, 0.8f, 1f),
+								new Color(0.7f, 0.7f, 1f), new Color(0.6f, 0.6f, 1f) });
+						return l;
+					} else if (isNetwork1 && isNetwork2) {
+						LinearGradientPaint l = new LinearGradientPaint(0, 0, 100, 100, new float[] { 0f, 0.3f, 1f }, new Color[] { new Color(0.8f, 0.8f, 1f),
+								new Color(0.7f, 0.7f, 1f), new Color(0.6f, 0.6f, 1f) });
+						return l;
+					} else if (isNetwork2 && isNetwork3) {
+						LinearGradientPaint l = new LinearGradientPaint(0, 0, 10, 10, new float[] { 0f, 0.3f, 1f }, new Color[] { new Color(0.8f, 0.8f, 1f),
+								new Color(0.7f, 0.7f, 1f), new Color(0.6f, 0.6f, 1f) });
+						return l;
+					} else if (isNetwork1 && isNetwork2 && isNetwork3) {
+						return Color.YELLOW;
 					} else if (isNetwork1) {
 						return palette[1];
 					} else if (isNetwork2) {

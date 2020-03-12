@@ -10,7 +10,6 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import io.github.pleyte.gmis.NetworkAnalysis;
-import io.github.pleyte.gmis.PerformAnalysis;
 import io.github.pleyte.gmis.bean.NetworkScore;
 
 /**
@@ -26,7 +25,7 @@ public class ResultsLoader {
 		InputStream stream = ResultsLoader.class.getClassLoader().getResourceAsStream("logging.properties");
 		try {
 			LogManager.getLogManager().readConfiguration(stream);
-			log = Logger.getLogger(PerformAnalysis.class.getName());
+			log = Logger.getLogger(ResultsLoader.class.getName());
 
 		} catch (IOException e) {
 			e.printStackTrace();
