@@ -43,8 +43,8 @@ hist(df.scores3$score, main = 'ASD scores')
 Venn Diagram of gene overlap from three sources
 ```{r}
 myCol <- brewer.pal(3, "Pastel2")
-venn.diagram(
-  x = list(df.scores1$gene, df.scores2$gene, df.scores3$gene),
+venn.diagram(x = list(df.scores1$gene, df.scores2$gene, df.scores3$gene),
+             main = 'Genes from each set',
   category.names = c("Schizophrenia Gene Set I" , 
                      "Schizophrenia Gene Set II", 
                      "ASD Gene Set"),
@@ -67,5 +67,51 @@ gene_list <- rbind(rbind(df.scores1,df.scores2), df.scores3) %>%
   distinct()
 
 write_delim(gene_list, 'gene_list.txt', delim = "\r\n")
+```
+
+Take the file ``gene_list.txt`` which was just created and load it in to the ReactomeFIViz plugin with options (this process takes 10+ minutues to complete):
+* Gene set
+* Fetch FI annotations
+* Use linker genes
+
+Save the resulting network using SIF file format as ``src/main/resource/gene_network.sif``
+
+Now you can run the ``NetworkAnalysis`` java class to learn a little bit about the network. 
+If you turn on debugging, ``NetworkAnalysis`` will output lines similar to to those shown below which tell you which genes from each of the three gene lists did not end up in the final network:
+```
+Unlinked sch1='NISCH', 'BRD1', 'NEURL', ...
+Unlinked sch2='NOMO3', 'TUSC2', 'FAM25A', ...
+Unlinked sfari='C12orf57', 'FRMPD4', 'NEXMIF', ...
+```
+
+If you copy and paste those three gene lists in to the following code block you can see if there is any overlap of the genes which did not make it in to the network. 
+
+* The graph has 1145 vertices and 8291 edges. 
+* Undirected graph has 1201 vertices and 9062 edges 
+* Average page rank score is 8.326394671107414E-4 
+* 14 of the genes in the first schizophrenia gene set are not in the final network. 
+* 121 of the genes in the second schizophrenia gene set are not in the final network. 
+* 147 of the genes in the SFARI gene set are not in the final network. 
+* There are 193 linker genes in the network which are not in any of the gene sets 
+
+```{r}
+l1 <- c('PLA2G15', 'HSPA1A', 'IMMP2L', 'CMYA5', 'NISCH', 'ADAMTSL3', 'TENM3', 'CNNM2', 'SIGMAR1', 'BRD1', 'NEURL', 'MYO1A', 'CLCN3', 'CNKSR2')
+l2 <- c('ENKD1', 'YPEL1', 'WHSC1L1', 'LOC442497', 'SERF2', 'STRC', 'MIR10B', 'FAM102A', 'LOC100289361', 'GPR124', 'MIR1228', 'MIR6840', 'C9orf92', 'PAQR9', 'DIO3', 'MIR130B', 'C16orf86', 'LINC00656', 'ZCWPW1', 'RPS6KC1', 'ABCA11P', 'ANGEL2', 'GFOD2', 'PINK1-AS', 'MIR4781', 'LOC102800310', 'GSTM2P1', 'MCEMP1', 'NOMO3', 'NXPH4', 'CBWD6', 'RNU6-83P', 'CCDC116', 'R3HCC1L', 'AGR3', 'RP9P', 'IQCD', 'KLK15', 'LOC100506178', 'LINC00687', 'RNASE10', 'HOXD-AS2', 'SNORD88C', 'CKMT1B', 'MIR1343', 'TUSC2', 'MIR195', 'ANGEL1', 'LARS2-AS1', 'MIR497HG', 'BRINP2', 'SNHG4', 'SLC35D3', 'STAG3L5P', 'MIR212', 'CAMK2N2', 'SEMA3B-AS1', 'C10orf25', 'KLKP1', 'LINC01210', 'HOXD-AS1', 'MIR4311', 'LOC101927881', 'DIO3OS', 'LOC101928869', 'LOC100506713', 'CEBPA-AS1', 'PVRIG2P', 'LOC101929420', 'MIR6778', 'STAG3L5P-PVRIG2P-PILRB', 'LRRC74', 'FAM200B', 'DNALI1', 'TFAMP1', 'SLC25A40', 'OR9G9', 'LOC100499194', 'KLRG2', 'MIR6872', 'BTD', 'LOC440896', 'MIR1470', 'NHEG1', 'LOC101928035', 'MIR7106', 'LINC00458', 'RUNDC3B', 'FLJ43681', 'C17orf49', 'AGAP11', 'LOC101927750', 'LOC341056', 'PAIP2', 'LOC401320', 'MIR132', 'ALOX12', 'CCDC42B', 'MGC45922', 'STAC3', 'FKBP9', 'YDJC', 'C19orf48', 'GCSAML', 'MIR5581', 'PGM5P2', 'PPP1R35', 'RLTPR', 'PPAPDC1B', 'MIR301B', 'RNASEK', 'LOC101927780', 'FAM25A', 'MIR6762', 'RNASEK-C17orf49', 'PCP2', 'C5orf22', 'TMEM225', 'LETM2', 'SNORA74A', 'MIR497')
+l3 <- c('ADK', 'TM4SF19', 'FAM98C', 'CMIP', 'STYK1', 'SASH1', 'ZNF548', 'TMLHE', 'RPS10P2-AS1', 'MSNP1AS', 'NEXMIF', 'LRRC1', 'FHIT', 'MIR137', 'CADPS', 'ALG6', 'PTCHD1', 'DOLK', 'CCIN', 'CASC4', 'TRPM1', 'TMEM39B', 'REEP3', 'FAM47A', 'NCKAP5', 'YTHDC2', 'MLANA', 'PRR12', 'EFR3A', 'SLC45A1', 'MFRP', 'CD276', 'DHX30', 'CHAMP1', 'ZNF804A', 'AGBL4', 'C12orf57', 'DNAH10', 'SLC9A9', 'H2BC11', 'CLCN4', 'LRBA', 'CSMD1', 'AGMO', 'PTCHD1-AS', 'DDX53', 'KIAA1586', 'DAGLA', 'MEGF10', 'NIPA2', 'TM4SF20', 'ASMT', 'TERB2', 'IMMP2L', 'HECTD4', 'FAM92B', 'KCNK7', 'SETBP1', 'FRMPD4', 'SLC25A39', 'SLC25A27', 'ZNF559', 'ABCA10', 'SEZ6L2', 'CA6', 'TBC1D23', 'ZNF713', 'AHDC1', 'CCSER1', 'GATM', 'MEGF11', 'GLIS1', 'TBCK', 'SLC22A15', 'TSPAN4', 'KATNAL2', 'CNTNAP5', 'SLC6A8', 'SETD5', 'NXPH1', 'SLC35B1', 'SGSH', 'ZNF827', 'METTL26', 'PHRF1', 'SLC38A10', 'DMXL2', 'SLC25A12', 'MYO5C', 'LRFN5', 'HYDIN', 'TTC25', 'DPP10', 'SSPO', 'CPZ', 'TTI2', 'DNAH17', 'SLC7A3', 'ABCA13', 'ODF3L2', 'AFF2', 'VSIG4', 'SLC9A6', 'VASH1', 'ZNF626', 'MSANTD2', 'PRPF39', 'RHOXF1', 'TSPAN17', 'ZNF517', 'GNB1L', 'NOTCH2NL', 'ANKS1B', 'NIPA1', 'ZSWIM6', 'SLC12A5', 'USP9Y', 'VPS13B', 'DYDC2', 'WDFY4', 'SLC29A4', 'DIP2C', 'RP11-1407O15.2', 'ST7', 'UBN2', 'CADM2', 'RANBP17', 'SLC22A9', 'DPYD', 'GRID2IP', 'ANKRD11', 'DIPK2A', 'PAPOLG', 'LNPK', 'SLC24A2', 'NBEA', 'SNX14', 'MACROD2', 'BCAS1', 'C15orf62', 'PSD3', 'PNPLA7', 'SYT17', 'ADSS2', 'CNKSR2', 'CTTNBP2', 'ASTN2' )
+
+venn.diagram(x = list(l1, l2, l3),
+             main = 'Unlinked genes from each set',
+  category.names = c("Schizophrenia Gene Set I" , 
+                     "Schizophrenia Gene Set II", 
+                     "ASD Gene Set"),
+  filename = 'unlinked_genes_venn_diagramm.png',
+  output=TRUE,
+  lwd = 2,
+  lty = 'blank',
+  fill = myCol,
+  cat.default.pos = "outer",
+  cat.pos = c(-27, 27, 135),
+  cat.dist = c(0.055, 0.055, 0.085),
+  cat.cex = 0.8)
 ```
 

@@ -61,7 +61,8 @@ public class NetworkLoader {
 					graph.addVertex(record.get(0));
 				} else if (record.size() != 3) {
 					throw new IOException("SIF record number " + record.getRecordNumber() + " has an unexpected number of fields: " + record.size());
-				} else if (!"-".equals(record.get(1))) {
+				} else if (!"-".equals(record.get(1)) && !" ".equals(record.get(1)) && !"".equals(record.get(1))) {
+					// It seems the middle value can be "", " ", or "-".
 					throw new IOException("SIF record number " + record.getRecordNumber() + " should have a dash in the middle instead of: " + record.get(1));
 				} else {
 					graph.addEdge(String.valueOf(edgeNumber), record.get(0), record.get(2));

@@ -11,7 +11,10 @@ a network diffusion approach to inferring  gene modules involved in schizophreni
 	- Data from the paper "Polygenic Risk Score, Genome-wide Association, and Gene Set Analyses of Cognitive Domain Deficits in Schizophrenia"
 * data/scores_schizophrenia_2.ods
 	- Data from the paper "Integrated Post-GWAS Analysis Sheds New Light on the Disease Mechanisms of Schizophrenia"
-	
+* clustered_gene_network.sif
+	- All the genes from the clusters of size greater than 1 were fed back in to Reactome FI to create a new (smaller) network.
+	- In order to make the network connected, linker genes are included. 
+	 	
 
 
 ## Setup

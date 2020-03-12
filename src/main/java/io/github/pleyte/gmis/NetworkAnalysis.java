@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -73,19 +74,29 @@ public class NetworkAnalysis {
 		Set<String> schizophreniaGeneSet1 = loadGeneSetFromScoreFile("hotnet_network/scores_1.tsv");
 		Set<String> unlinkedSchizophreniaGeneSet1 = getUnlinkedGenes(graph, schizophreniaGeneSet1);
 		log.info(unlinkedSchizophreniaGeneSet1.size() + " of the genes in the first schizophrenia gene set are not in the final network.");
-		log.fine("Unlinked sch1=" + unlinkedSchizophreniaGeneSet1);
+		log.fine("Unlinked sch1=" + quoteAndCommaSeparate(unlinkedSchizophreniaGeneSet1));
 
 		Set<String> schizophreniaGeneSet2 = loadGeneSetFromScoreFile("hotnet_network/scores_2.tsv");
 		Set<String> unlinkedSchizophreniaGeneSet2 = getUnlinkedGenes(graph, schizophreniaGeneSet2);
 		log.info(unlinkedSchizophreniaGeneSet2.size() + " of the genes in the second schizophrenia gene set are not in the final network.");
-		log.fine("Unlinked sch2=" + unlinkedSchizophreniaGeneSet2);
+		log.fine("Unlinked sch2=" + quoteAndCommaSeparate(unlinkedSchizophreniaGeneSet2));
 
 		Set<String> schizophreniaGeneSet3 = loadGeneSetFromScoreFile("hotnet_network/scores_3.tsv");
 		Set<String> unlinkedSchizophreniaGeneSet3 = getUnlinkedGenes(graph, schizophreniaGeneSet3);
 		log.info(unlinkedSchizophreniaGeneSet3.size() + " of the genes in the SFARI gene set are not in the final network.");
-		log.fine("Unlinked sfari=" + unlinkedSchizophreniaGeneSet3);
+		log.fine("Unlinked SFARI=" + quoteAndCommaSeparate(unlinkedSchizophreniaGeneSet3));
 
 		log.info("There are " + getLinkerGeneCount(graph, schizophreniaGeneSet1, schizophreniaGeneSet2, schizophreniaGeneSet3).size() + " linker genes in the network which are not in any of the gene sets");
+	}
+
+	/**
+	 * Convert a list of elements to a quoted comma separated list (ie 'a','b','c')
+	 * 
+	 * @param unlinkedSchizophreniaGeneSet1
+	 * @return
+	 */
+	private String quoteAndCommaSeparate(Set<String> unlinkedSchizophreniaGeneSet1) {
+		return String.join(", ", unlinkedSchizophreniaGeneSet1.stream().map(name -> ("'" + name + "'")).collect(Collectors.toSet()));
 	}
 
 	/**

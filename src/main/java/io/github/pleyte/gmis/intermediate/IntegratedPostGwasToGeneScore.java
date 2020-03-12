@@ -40,12 +40,43 @@ public class IntegratedPostGwasToGeneScore {
 	 */
 	public static void main(String[] args) throws Exception {
 		IntegratedPostGwasToGeneScore ipToGs = new IntegratedPostGwasToGeneScore();
+
+		Map<String, Double> putativeGeneScores = ipToGs.loadGenesWithPutativeSupport("/Users/pleyte/git/gene-modules-in-schizophreina/data/IntegratedPost-GWASAnalysis_files/Table1.csv");
 		Map<String, Double> literatureGeneScores = ipToGs.loadGenesWithLiteratureSupport("/Users/pleyte/git/gene-modules-in-schizophreina/data/IntegratedPost-GWASAnalysis_files/tabula-TableS2.csv");
 		Map<String, Double> regulatoryGeneScores = ipToGs.loadGenesWithRegulatorySupport("/Users/pleyte/git/gene-modules-in-schizophreina/data/IntegratedPost-GWASAnalysis_files/tabula-TableS4.csv");
 
-		Map<String, Double> geneScoreConsolidated = consolidateGeneScores(literatureGeneScores, regulatoryGeneScores);
+		Map<String, Double> geneScoreConsolidated = consolidateGeneScores(putativeGeneScores, literatureGeneScores, regulatoryGeneScores);
 		ipToGs.save(geneScoreConsolidated, "/Users/pleyte/git/gene-modules-in-schizophreina/data/IntegratedPost-GWASAnalysis_files/scores_1.tsv");
 
+	}
+
+	/**
+	 * Load the gene scores for the 132 putative genes in Table 1
+	 * 
+	 * @param table1CsvFile
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	private Map<String, Double> loadGenesWithPutativeSupport(String table1CsvFile) throws FileNotFoundException, IOException {
+		Map<String, Double> geneScore = new HashMap<String, Double>();
+		try (Reader in = new FileReader(table1CsvFile)) {
+			Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(in);
+			for (CSVRecord record : records) {
+				String gene = record.get("Gene symbol");
+				String score = record.get("Score");
+
+				if (StringUtils.isBlank(score)) {
+					throw new IOException("Table1: Encountered blank score for record number " + record.getRecordNumber());
+				} else if (geneScore.get(gene) != null && !geneScore.get(gene).equals(Double.valueOf(score))) {
+					throw new IOException("Table1: Encountered duplicate gene " + gene + " with differing score in input file at record number " + record.getRecordNumber());
+				} else {
+					geneScore.put(gene, Double.valueOf(score));
+				}
+			}
+		}
+
+		return geneScore;
 	}
 
 	/**
@@ -151,15 +182,30 @@ public class IntegratedPostGwasToGeneScore {
 	 * 
 	 * @param literatureGeneScores
 	 * @param regulatoryGeneScores
+	 * @param regulatoryGeneScores2
 	 * @return
 	 * @throws Exception
 	 */
-	private static Map<String, Double> consolidateGeneScores(Map<String, Double> literatureGeneScores, Map<String, Double> regulatoryGeneScores) throws Exception {
-		Map<String, Double> geneSet = new HashMap<>(literatureGeneScores);
+	private static Map<String, Double> consolidateGeneScores(Map<String, Double> putativeGeneScores,
+			Map<String, Double> literatureGeneScores, Map<String, Double> regulatoryGeneScores) throws Exception {
 
+		// Create a new map with all the genes from the first gene set
+		Map<String, Double> geneSet = new HashMap<>(putativeGeneScores);
+
+		// Add genes from the second gene set
 		for (Entry<String, Double> entry : regulatoryGeneScores.entrySet()) {
-			if (geneSet.containsKey(entry.getKey())) {
-				log.info("Encountered conflictict with " + entry.getKey() + ": " + geneSet.get(entry.getKey()) + " vs " + entry.getValue());
+			if (geneSet.containsKey(entry.getKey()) && Double.compare(geneSet.get(entry.getKey()), entry.getValue()) != 0) {
+				log.info("Regulatory set encountered conflictict with " + entry.getKey() + ": " + geneSet.get(entry.getKey()) + " vs " + entry.getValue());
+				geneSet.put(entry.getKey(), Math.max(geneSet.get(entry.getKey()), entry.getValue()));
+			} else {
+				geneSet.put(entry.getKey(), entry.getValue());
+			}
+		}
+
+		// Add genes from the third gene set
+		for (Entry<String, Double> entry : literatureGeneScores.entrySet()) {
+			if (geneSet.containsKey(entry.getKey()) && Double.compare(geneSet.get(entry.getKey()), entry.getValue()) != 0) {
+				log.info("Literature set encountered conflictict with " + entry.getKey() + ": " + geneSet.get(entry.getKey()) + " vs " + entry.getValue());
 				geneSet.put(entry.getKey(), Math.max(geneSet.get(entry.getKey()), entry.getValue()));
 			} else {
 				geneSet.put(entry.getKey(), entry.getValue());
