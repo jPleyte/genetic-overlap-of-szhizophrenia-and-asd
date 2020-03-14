@@ -2,7 +2,7 @@ package io.github.pleyte.gmis.visualisation;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.LinearGradientPaint;
+import java.awt.GradientPaint;
 import java.awt.Paint;
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,6 +67,12 @@ public class GeneNetworkVisualisation {
 		return graph;
 	}
 
+	/**
+	 * The the graph which only has clustered genes and the linker genes neccessary to form a single component.
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	private Graph<String, String> loadClusteredAndLinkedGraph() throws IOException {
 		URL geneNetworkSifFile = GeneNetworkVisualisation.class.getClassLoader().getResource(FILE_NETWORK_CLUSTERED_AND_LINKED_GENES);
 		Graph<String, String> graph = NetworkLoader.loadSifGraph(geneNetworkSifFile.getFile());
@@ -80,23 +86,31 @@ public class GeneNetworkVisualisation {
 	 */
 	private void clusteredGeneNetwork(ResultsLoader results) throws IOException {
 		Graph<String, String> graph = loadClusteredAndLinkedGraph();
-		//		1 Layout<String, String> layout = new FRLayout<>(graph);
 		Layout<String, String> layout = new KKLayout<>(graph);
-		((KKLayout) layout).setAdjustForGravity(true);
+		((KKLayout) layout).setAdjustForGravity(false);
 		((KKLayout) layout).setDisconnectedDistanceMultiplier(100);
 		((KKLayout) layout).setExchangeVertices(true);
-		((KKLayout) layout).setLengthFactor(1.2);
+		((KKLayout) layout).setLengthFactor(1.1);
 
-		VisualizationImageServer<String, String> vv = new VisualizationImageServer<>(layout, new Dimension(1280, 800));
+		VisualizationImageServer<String, String> vv = new VisualizationImageServer<>(layout, new Dimension(1280, 1000));
 
 		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<>());
 		vv.getRenderContext().setVertexFillPaintTransformer(getVertexTransformer(results));
 		render(vv);
 	}
 
+	private static final Color COLOR_PURPLE = new Color(138, 86, 161);
+	private static final Color COLOR_BLUE = new Color(104, 168, 206);
+	private static final Color COLOR_WILAMMETTE = new Color(95, 117, 126);
+	private static final Color[] PALETTE_ONE = { Color.lightGray, COLOR_BLUE, COLOR_WILAMMETTE, COLOR_PURPLE };
+
+	private static final Color COLOR_BRICK = new Color(237, 135, 21);
+	private static final Color COLOR_BLOOD = new Color(126, 0, 0);
+	private static final Color COLOR_AQUA = new Color(97, 153, 176);
+	private static final Color[] PALETTE_TWO = { Color.lightGray, COLOR_BRICK, COLOR_BLOOD, COLOR_AQUA };
+
 	private Transformer<String, Paint> getVertexTransformer(ResultsLoader results) {
 		return new Transformer<String, Paint>() {
-			private final Color[] palette = { Color.GRAY, Color.GREEN, Color.BLUE, Color.RED };
 
 			@Override
 			public Paint transform(String gene) {
@@ -115,36 +129,28 @@ public class GeneNetworkVisualisation {
 					//					} else if (isNetwork2 && isNetwork3) {
 					//						log.severe("jDebug: two and three");
 					//					}
-
-					if (isNetwork1 && isNetwork3) {
-						LinearGradientPaint l = new LinearGradientPaint(0, 0, 10, 10, new float[] { 0f, 0.3f, 1f }, new Color[] { new Color(0.8f, 0.8f, 1f),
-								new Color(0.7f, 0.7f, 1f), new Color(0.6f, 0.6f, 1f) });
-						return l;
+					if (isNetwork1 && isNetwork2 && isNetwork3) {
+						// This scenario is not currently expected
+						return Color.RED;
+					} else if (isNetwork1 && isNetwork3) {
+						return new GradientPaint(0, 0, PALETTE_TWO[1], 1, 2, PALETTE_TWO[3], true);
 					} else if (isNetwork1 && isNetwork2) {
-						LinearGradientPaint l = new LinearGradientPaint(0, 0, 100, 100, new float[] { 0f, 0.3f, 1f }, new Color[] { new Color(0.8f, 0.8f, 1f),
-								new Color(0.7f, 0.7f, 1f), new Color(0.6f, 0.6f, 1f) });
-						return l;
+						return new GradientPaint(0, 0, PALETTE_TWO[1], 1, 2, PALETTE_TWO[2], true);
 					} else if (isNetwork2 && isNetwork3) {
-						LinearGradientPaint l = new LinearGradientPaint(0, 0, 10, 10, new float[] { 0f, 0.3f, 1f }, new Color[] { new Color(0.8f, 0.8f, 1f),
-								new Color(0.7f, 0.7f, 1f), new Color(0.6f, 0.6f, 1f) });
-						return l;
-					} else if (isNetwork1 && isNetwork2 && isNetwork3) {
-						return Color.YELLOW;
+						return new GradientPaint(0, 0, PALETTE_TWO[2], 1, 2, PALETTE_TWO[3], true);
 					} else if (isNetwork1) {
-						return palette[1];
+						return PALETTE_TWO[1];
 					} else if (isNetwork2) {
-						return palette[2];
+						return PALETTE_TWO[2];
 					} else if (isNetwork3) {
-						return palette[3];
+						return PALETTE_TWO[3];
 					} else {
 						// linker gene
-						return palette[0];
+						return PALETTE_TWO[0];
 					}
-
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return Color.PINK;
+					log.severe("Exception occurred during transform: " + e.getMessage());
+					throw new RuntimeException("Exception while transforming vertex colour", e);
 				}
 			}
 		};

@@ -20,6 +20,13 @@ import org.apache.commons.lang3.StringUtils;
 
 import io.github.pleyte.gmis.PerformAnalysis;
 
+/**
+ * Tthis class loads gene scores from three tables exported from the PDF paper (Integrated Post-GWAS Analysis Sheds New
+ * Light on the Disease Mechanisms of Schizophrenia) and saves all the gene scores to the "scores_1.tsv" file.
+ * 
+ * @author pleyte
+ *
+ */
 public class IntegratedPostGwasToGeneScore {
 	private static Logger log;
 
@@ -41,12 +48,15 @@ public class IntegratedPostGwasToGeneScore {
 	public static void main(String[] args) throws Exception {
 		IntegratedPostGwasToGeneScore ipToGs = new IntegratedPostGwasToGeneScore();
 
-		Map<String, Double> putativeGeneScores = ipToGs.loadGenesWithPutativeSupport("/Users/pleyte/git/gene-modules-in-schizophreina/data/IntegratedPost-GWASAnalysis_files/Table1.csv");
-		Map<String, Double> literatureGeneScores = ipToGs.loadGenesWithLiteratureSupport("/Users/pleyte/git/gene-modules-in-schizophreina/data/IntegratedPost-GWASAnalysis_files/tabula-TableS2.csv");
-		Map<String, Double> regulatoryGeneScores = ipToGs.loadGenesWithRegulatorySupport("/Users/pleyte/git/gene-modules-in-schizophreina/data/IntegratedPost-GWASAnalysis_files/tabula-TableS4.csv");
+		Map<String, Double> putativeGeneScores = ipToGs
+				.loadGenesWithPutativeSupport("data/IntegratedPost-GWASAnalysis_files/Table1.csv");
+		Map<String, Double> literatureGeneScores = ipToGs
+				.loadGenesWithLiteratureSupport("data/IntegratedPost-GWASAnalysis_files/tabula-TableS2.csv");
+		Map<String, Double> regulatoryGeneScores = ipToGs
+				.loadGenesWithRegulatorySupport("data/IntegratedPost-GWASAnalysis_files/tabula-TableS4.csv");
 
 		Map<String, Double> geneScoreConsolidated = consolidateGeneScores(putativeGeneScores, literatureGeneScores, regulatoryGeneScores);
-		ipToGs.save(geneScoreConsolidated, "/Users/pleyte/git/gene-modules-in-schizophreina/data/IntegratedPost-GWASAnalysis_files/scores_1.tsv");
+		ipToGs.save(geneScoreConsolidated, "data/IntegratedPost-GWASAnalysis_files/scores_1.tsv");
 
 	}
 

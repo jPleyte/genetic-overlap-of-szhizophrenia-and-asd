@@ -1,6 +1,7 @@
 package io.github.pleyte.gmis.result;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -74,6 +75,14 @@ public class ResultsLoader {
 	private NetworkScore getNetworkScores(String clustersScoresFileName) throws IOException {
 		log.fine("Loading network scores file " + clustersScoresFileName);
 		URL clustersScoresFile = NetworkAnalysis.class.getClassLoader().getResource(clustersScoresFileName);
+
+		if (clustersScoresFile == null) {
+			throw new IOException("Unable to locate input file: " + clustersScoresFileName);
+		}
+		File f = new File(clustersScoresFile.getFile());
+		if (!f.exists()) {
+			throw new IOException("Unable to locate input file: " + f);
+		}
 		NetworkScore networkScore = new NetworkScore();
 		try (Reader in = new FileReader(clustersScoresFile.getFile()); BufferedReader br = new BufferedReader(in)) {
 
