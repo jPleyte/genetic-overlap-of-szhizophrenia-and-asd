@@ -9,6 +9,18 @@ Network diffusion is applied to the network and gene scores using Hierarchical H
 ## Files
 
 * ``src/main/java`` Java source files
+	- ``PerformAnalysis.java`` - This will be the main class which launches the pipeline using the Apache commons-chain framework.
+	- ``NetworkAnalysis.java`` - Provides information about the network before and after apply network diffusion. 
+	- ``IntegratedPostGwasToGeneScore.java`` - Converts the data from the Integrated Post-GWAS (4) study to the scores file format used by HotNet.
+	- ``PolyPValueToGeneScore.java`` - Converts the data from the Polygenic risk score GWAS (5) study to the scores file format used by HotNet.
+	- ``SfariToGeneScore.java``  - Converts the SFARI (https://www.sfari.org/) database to the scores file format used by HotNet.  
+	- ``NetworkIndexAndEdgeCreator.java`` - Takes the SIF file exported from Cytoscape and creates the network index and edge files used by HotNet
+
+	- ``NetworkLoader.java`` - Creates a Jung network by reading a SIF file.
+	- ``SimpleHotNetExample.java`` - This is used during my testing of Hierarchical HotNet using a simple network.
+	- ``ResultsLoader.java`` - This class loads HotNet results from file
+	- ``ResultAnalysis.java`` - This class prints some information about the clustering performed by HotNet.
+	- ``GeneNetworkVisualisation.java`` - Generates a visualisation of the networks 
 * ``src/main/resources/gene_network.sif`` - Gene network created from three studies
 * ``src/main/resources/clustered_gene_network.sif`` - Gene network created from top genes after network diffusion
 * ``src/main/resources/hotnet_network`` - Files input to and output from Hierarchical HotNet

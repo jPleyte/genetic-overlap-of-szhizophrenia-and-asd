@@ -33,6 +33,15 @@ h5f$PPR
 ```
 
 ```{r}
+mean(h5f$PPR[1,])
+sum(h5f$PPR[1,])
+
+myMatrix <- h5f$PPR;
+round(myMatrix, 2)
+```
+
+
+```{r}
 H5Fclose(h5f)
 ```
 
