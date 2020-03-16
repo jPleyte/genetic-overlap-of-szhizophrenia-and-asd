@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Paint;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -12,8 +13,12 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import org.apache.commons.collections15.Transformer;
+import org.freehep.graphics2d.VectorGraphics;
+import org.freehep.graphicsio.pdf.PDFGraphics2D;
 
 import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
 import edu.uci.ics.jung.algorithms.layout.KKLayout;
@@ -21,11 +26,17 @@ import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationImageServer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
+import io.github.pleyte.gmis.NetworkAnalysis;
 import io.github.pleyte.gmis.intermediate.NetworkLoader;
 import io.github.pleyte.gmis.result.ResultsLoader;
 
 public class GeneNetworkVisualisation {
 	private static Logger log;
+
+	private static final Color COLOUR_ORANGISH = new Color(237, 135, 21);
+	private static final Color COLOUR_BLOOD = new Color(126, 0, 0);
+	private static final Color COLOUR_AQUA = new Color(97, 153, 176);
+	private static final Color[] PALETTE_TWO = { Color.lightGray, COLOUR_ORANGISH, COLOUR_BLOOD, COLOUR_AQUA };
 
 	static {
 		InputStream stream = GeneNetworkVisualisation.class.getClassLoader().getResourceAsStream("logging.properties");
@@ -51,7 +62,12 @@ public class GeneNetworkVisualisation {
 
 		// Show the graph made up of only the clusters of size > 1, and their linker
 		// genes.
+		Graph<String, String> graph = networkVisualisation.loadClusteredAndLinkedGraph();
+
 		networkVisualisation.clusteredGeneNetwork(results);
+
+		NetworkAnalysis na = new NetworkAnalysis();
+		na.show(graph);
 	}
 
 	/**
@@ -61,7 +77,7 @@ public class GeneNetworkVisualisation {
 	 * @return
 	 * @throws IOException
 	 */
-	private Graph loadLargeScoredAndLinkedGraph() throws IOException {
+	private Graph<String, String> loadLargeScoredAndLinkedGraph() throws IOException {
 		URL geneNetworkSifFile = GeneNetworkVisualisation.class.getClassLoader().getResource(FILE_NETWORK_SCORED_AND_LINKED_GENES);
 		Graph<String, String> graph = NetworkLoader.loadSifGraph(geneNetworkSifFile.getFile());
 		return graph;
@@ -87,10 +103,10 @@ public class GeneNetworkVisualisation {
 	private void clusteredGeneNetwork(ResultsLoader results) throws IOException {
 		Graph<String, String> graph = loadClusteredAndLinkedGraph();
 		Layout<String, String> layout = new KKLayout<>(graph);
-		((KKLayout) layout).setAdjustForGravity(false);
-		((KKLayout) layout).setDisconnectedDistanceMultiplier(100);
+		((KKLayout) layout).setAdjustForGravity(true);
+		((KKLayout) layout).setDisconnectedDistanceMultiplier(80);
 		((KKLayout) layout).setExchangeVertices(true);
-		((KKLayout) layout).setLengthFactor(1.1);
+		((KKLayout) layout).setLengthFactor(.9);
 
 		VisualizationImageServer<String, String> vv = new VisualizationImageServer<>(layout, new Dimension(1280, 1000));
 
@@ -99,15 +115,6 @@ public class GeneNetworkVisualisation {
 		render(vv);
 	}
 
-	private static final Color COLOR_PURPLE = new Color(138, 86, 161);
-	private static final Color COLOR_BLUE = new Color(104, 168, 206);
-	private static final Color COLOR_WILAMMETTE = new Color(95, 117, 126);
-	private static final Color[] PALETTE_ONE = { Color.lightGray, COLOR_BLUE, COLOR_WILAMMETTE, COLOR_PURPLE };
-
-	private static final Color COLOR_BRICK = new Color(237, 135, 21);
-	private static final Color COLOR_BLOOD = new Color(126, 0, 0);
-	private static final Color COLOR_AQUA = new Color(97, 153, 176);
-	private static final Color[] PALETTE_TWO = { Color.lightGray, COLOR_BRICK, COLOR_BLOOD, COLOR_AQUA };
 
 	private Transformer<String, Paint> getVertexTransformer(ResultsLoader results) {
 		return new Transformer<String, Paint>() {
@@ -169,16 +176,44 @@ public class GeneNetworkVisualisation {
 		Graph<String, String> graph = loadLargeScoredAndLinkedGraph();
 		Layout<String, String> layout = new ISOMLayout<>(graph);
 
-		VisualizationImageServer<String, String> vv = new VisualizationImageServer<>(layout, new Dimension(1024, 768));
+		VisualizationImageServer<String, String> vv = new VisualizationImageServer<>(layout, new Dimension(1024, 640));
+		vv.setBackground(Color.WHITE);
 		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<>());
 		render(vv);
 	}
 
 	private void render(VisualizationImageServer<String, String> vv) {
 		JFrame jf = new JFrame();
+		jf.setBackground(Color.WHITE);
+
+		JPanel container = new JPanel();
+		container.setBackground(Color.WHITE);
+
+		JScrollPane scrPane = new JScrollPane(container);
+		scrPane.setBackground(Color.WHITE);
+
+		jf.add(scrPane);
+		container.add(vv);
+
 		jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		jf.getContentPane().add(vv);
 		jf.pack();
 		jf.setVisible(true);
+
 	}
+
+	/**
+	 * Save image of graph as file. This isn't working.
+	 * 
+	 * @param vv
+	 * @param fileName
+	 * @throws IOException
+	 */
+	private void save(VisualizationImageServer<String, String> vv, String fileName) throws IOException {
+
+		log.info("Writing graph to file " + fileName);
+
+		VectorGraphics g = new PDFGraphics2D(new File("/tmp/Network.pdf"), vv);
+		//		VectorGraphics g = new SVGGraphics2D(new File("/tmp/Network.svg"), vv);
+	}
+
 }

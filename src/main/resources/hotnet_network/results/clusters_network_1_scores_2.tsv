@@ -1,9 +1,9 @@
 # Observed cut height: 0.010763406
 # Observed size of largest cluster at observed cut height: 12
-# Expected size of largest cluster at observed cut height: 9.0
-# Observed maximum ratio statistic: 1.333
-# Expected maximum ratio statistic: 1.147
-# p-value: 0.2
+# Expected size of largest cluster at observed cut height: 8.985
+# Observed maximum ratio statistic: 1.336
+# Expected maximum ratio statistic: 1.185
+# p-value: 0.09875
 # Clusters:
 ACTR3	ATF1	BAG4	CHN1	CLTA	CTCF	HIC1	HSPA8	LDHA	OPRL1	TBX21	THAP11
 ABCB1	CEBPA	E2F2	RETN	TFDP2	UBE2L3

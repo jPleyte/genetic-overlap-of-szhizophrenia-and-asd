@@ -1,14 +1,13 @@
-# Observed cut height: 4.686133
-# Observed size of largest cluster at observed cut height: 14
-# Expected size of largest cluster at observed cut height: 3.6
-# Observed maximum ratio statistic: 3.889
-# Expected maximum ratio statistic: 1.536
-# p-value: 0.0
+# Observed cut height: 7.3434505
+# Observed size of largest cluster at observed cut height: 10
+# Expected size of largest cluster at observed cut height: 3.285
+# Observed maximum ratio statistic: 3.044
+# Expected maximum ratio statistic: 1.593
+# p-value: 0.02125
 # Clusters:
-CACNA1C	CIT	DLG4	FURIN	GRIA1	GRIK3	GRIN2A	HOMER2	LRP1	MDK	MMP16	NLGN4X	PLAT	RELN
+CACNA1C	DLG4	FURIN	GRIN2A	LRP1	MDK	MMP16	NLGN4X	PLAT	RELN
 CHRNA3	CHRNA5	CHRNB4
 CXCL12	DPP4
-NMUR2	OPRM1
 PTGIS	PTGS2
 ADD1
 AGER
@@ -32,6 +31,7 @@ CDH13
 CETP
 CHEK1
 CHRM4
+CIT
 CLIC1
 CLU
 CNTN4
@@ -61,6 +61,8 @@ GCA
 GNAL
 GNL3
 GRB2
+GRIA1
+GRIK3
 GRM3
 GSTT1
 HBEGF
@@ -71,6 +73,7 @@ HDAC4
 HLA-DQB1
 HLA-DRA
 HLA-DRB1
+HOMER2
 HSPD1
 HTR3B
 IFNG
@@ -96,12 +99,14 @@ MTNR1A
 MYO15A
 NCAN
 NDEL1
+NMUR2
 NOTCH4
 NRG3
 NRGN
 NRXN3
 NUCB2
 OPN1LW
+OPRM1
 PAK6
 PAM
 PARD3

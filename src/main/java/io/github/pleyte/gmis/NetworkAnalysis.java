@@ -25,6 +25,12 @@ import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import io.github.pleyte.gmis.intermediate.NetworkLoader;
 
+/**
+ * This class provides information about a network; including vertex and edge count, and Page Rank 
+ * 
+ * @author pleyte
+ *
+ */
 public class NetworkAnalysis {
 
 	private static Logger log;
@@ -61,7 +67,7 @@ public class NetworkAnalysis {
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
-	private void show(Graph<String, String> graph) throws FileNotFoundException, IOException {
+	public void show(Graph<String, String> graph) throws FileNotFoundException, IOException {
 		String directedOrUndirected = null;
 		if (graph instanceof UndirectedGraph) {
 			directedOrUndirected = "Undirected";

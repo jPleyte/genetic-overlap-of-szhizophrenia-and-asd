@@ -1,9 +1,9 @@
 # Observed cut height: 1.8597063
 # Observed size of largest cluster at observed cut height: 13
-# Expected size of largest cluster at observed cut height: 6.8
-# Observed maximum ratio statistic: 1.912
-# Expected maximum ratio statistic: 1.669
-# p-value: 0.2
+# Expected size of largest cluster at observed cut height: 6.59375
+# Observed maximum ratio statistic: 1.972
+# Expected maximum ratio statistic: 1.597
+# p-value: 0.14125
 # Clusters:
 ACTL6B	ARID1B	ARID2	ATRX	CHD7	CHD8	KDM3B	MBD4	PHF2	SETD1B	SETDB1	SETDB2	TET2
 ARHGEF9	GABRA3	GABRA4	GABRB3	GABRG3	GPHN
