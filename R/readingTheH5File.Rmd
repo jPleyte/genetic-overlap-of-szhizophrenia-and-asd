@@ -1,0 +1,38 @@
+---
+title: "HDF5 SCratch"
+author: "jay pleyte"
+date: "2/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+BiocManager::install("rhdf5")
+
+```{r}
+library(rhdf5)
+```
+
+```{r}
+# fileName <- "/Users/pleyte/git/MySimpleHHotNet/hierarchical-hotnet/simpleExample/intermediate/network_1/similarity_matrix.h5"
+# fileName <- '/Users/pleyte/git/HhotNetProject/hotnet2/exampleRunRex/network2/network2_ppr_0.5.h5'
+# fileName <- '/Users/pleyte/git/MySimpleHHotNet/hierarchical-hotnet/simpleExample/results/c2.similarity_matrix.h5'
+fileName <- '/Users/pleyte/git/HhotNet-example/hierarchical-hotnet/examples/intermediate/network_1/similarity_matrix.h5'
+h5ls(fileName)
+
+h5f = H5Fopen(fileName)
+
+
+```
+
+
+```{r}
+h5f$PPR
+```
+
+```{r}
+H5Fclose(h5f)
+```
+
